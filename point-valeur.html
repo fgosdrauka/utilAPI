@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convertisseur Points-Valeur</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #4287f5;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 15px;
+      margin: 10px 0 5px;
+      display: block;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    .result, .formula {
+      margin-top: 15px;
+      font-size: 16px;
+      text-align: center;
+      color: #444;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      background-color: #4287f5;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #2d5cc7;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
+    }
+
+    @media (min-width: 480px) {
+      .row {
+        flex-direction: row;
+      }
+
+      .row > div {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Convertisseur Points-Valeur</h2>
+
+    <div class="row">
+      <div>
+        <label for="lower_bound">Borne inférieure du signal:</label>
+        <input type="number" id="lower_bound" value="6400" oninput="convertPointToValue()">
+
+        <label for="upper_bound">Borne supérieure du signal:</label>
+        <input type="number" id="upper_bound" value="32000" oninput="convertPointToValue()">
+      </div>
+
+      <div>
+        <label for="scale_min">Échelle (Min):</label>
+        <input type="number" id="scale_min" value="0" oninput="convertPointToValue()">
+
+        <label for="scale_max">Échelle (Max):</label>
+        <input type="number" id="scale_max" value="100" oninput="convertPointToValue()">
+      </div>
+    </div>
+
+    <label for="point">Point :</label>
+    <input type="number" id="point" oninput="convertPointToValue()">
+
+    <div class="result" id="result"></div>
+    <div class="formula" id="formula"></div>
+
+    <label for="value">Valeur :</label>
+    <input type="number" id="value" oninput="convertValueToPoint()">
+
+    <button class="btn" onclick="resetAll()">Réinitialiser</button>
+  </div>
+
+  <script>
+    function convertPointToValue() {
+      const point = parseFloat(document.getElementById("point").value);
+      const lowerBound = parseFloat(document.getElementById("lower_bound").value);
+      const upperBound = parseFloat(document.getElementById("upper_bound").value);
+      const scaleMin = parseFloat(document.getElementById("scale_min").value);
+      const scaleMax = parseFloat(document.getElementById("scale_max").value);
+
+      if (lowerBound >= upperBound || scaleMin >= scaleMax) {
+        document.getElementById("result").innerText = "Erreur : bornes incorrectes.";
+        return;
+      }
+
+      const value = scaleMin + (point - lowerBound) * (scaleMax - scaleMin) / (upperBound - lowerBound);
+      document.getElementById("value").value = value.toFixed(2);
+      document.getElementById("result").innerText = "";
+      updateFormula();
+    }
+
+    function convertValueToPoint() {
+      const value = parseFloat(document.getElementById("value").value);
+      const lowerBound = parseFloat(document.getElementById("lower_bound").value);
+      const upperBound = parseFloat(document.getElementById("upper_bound").value);
+      const scaleMin = parseFloat(document.getElementById("scale_min").value);
+      const scaleMax = parseFloat(document.getElementById("scale_max").value);
+
+      if (lowerBound >= upperBound || scaleMin >= scaleMax) {
+        document.getElementById("result").innerText = "Erreur : bornes incorrectes.";
+        return;
+      }
+
+      const point = lowerBound + (value - scaleMin) * (upperBound - lowerBound) / (scaleMax - scaleMin);
+      document.getElementById("point").value = point.toFixed(2);
+      document.getElementById("result").innerText = "";
+      updateFormula();
+    }
+
+    function updateFormula() {
+      const lowerBound = parseFloat(document.getElementById("lower_bound").value);
+      const upperBound = parseFloat(document.getElementById("upper_bound").value);
+      const scaleMin = parseFloat(document.getElementById("scale_min").value);
+      const scaleMax = parseFloat(document.getElementById("scale_max").value);
+
+      if (lowerBound >= upperBound || scaleMin >= scaleMax) {
+        document.getElementById("formula").innerText = "";
+        return;
+      }
+
+      const formulaText = `Valeur = ${scaleMin} + (signal - ${lowerBound}) × (${scaleMax} - ${scaleMin}) / (${upperBound} - ${lowerBound})`;
+      document.getElementById("formula").innerText = formulaText;
+    }
+
+    function resetAll() {
+      document.getElementById("lower_bound").value = 6400;
+      document.getElementById("upper_bound").value = 32000;
+      document.getElementById("scale_min").value = 0;
+      document.getElementById("scale_max").value = 100;
+      document.getElementById("point").value = "";
+      document.getElementById("value").value = "";
+      document.getElementById("result").innerText = "";
+      document.getElementById("formula").innerText = "";
+    }
+  </script>
+</body>
+</html>
