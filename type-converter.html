@@ -47,30 +47,33 @@
       box-sizing: border-box;
     }
 
-    .result {
-      margin-top: 15px;
-      font-size: 16px;
-      color: #555;
-      text-align: center;
-    }
-
     .btn {
       width: 100%;
       padding: 12px;
-      margin-top: 20px;
+      margin-top: 15px;
       font-size: 16px;
       border: none;
       border-radius: 8px;
       color: white;
       background-color: #4287f5;
       cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
       transition: background-color 0.2s ease;
     }
 
     .btn:hover {
       background-color: #2d5cc7;
     }
-  </style>
+
+    .result, .formula {
+      margin-top: 15px;
+      font-size: 16px;
+      text-align: center;
+      color: #444;
+    }
+</style>
 </head>
 <body>
   <div class="container">
@@ -88,6 +91,9 @@
     <div class="result" id="result"></div>
 
     <button class="btn" onclick="resetInputs()">Réinitialiser</button>
+    
+<a href="index.html" class="btn">⬅️ Retour à l’accueil</a>
+
   </div>
 
   <script>

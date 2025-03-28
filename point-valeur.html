@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Convertisseur Points-Valeur</title>
+  <title>Convertisseur Point-Valeur</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -19,7 +19,7 @@
     .container {
       width: 100%;
       max-width: 500px;
-      background: #fff;
+      background-color: #fff;
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -32,9 +32,9 @@
     }
 
     label {
-      font-size: 15px;
-      margin: 10px 0 5px;
       display: block;
+      font-size: 15px;
+      margin: 12px 0 5px;
       color: #555;
     }
 
@@ -45,14 +45,6 @@
       border-radius: 8px;
       font-size: 16px;
       box-sizing: border-box;
-      margin-bottom: 10px;
-    }
-
-    .result, .formula {
-      margin-top: 15px;
-      font-size: 16px;
-      text-align: center;
-      color: #444;
     }
 
     .btn {
@@ -65,34 +57,27 @@
       color: white;
       background-color: #4287f5;
       cursor: pointer;
-      transition: background 0.2s ease;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.2s ease;
     }
 
     .btn:hover {
       background-color: #2d5cc7;
     }
 
-    .row {
-      display: flex;
-      gap: 10px;
-      flex-direction: column;
+    .result, .formula {
+      margin-top: 15px;
+      font-size: 16px;
+      text-align: center;
+      color: #444;
     }
-
-    @media (min-width: 480px) {
-      .row {
-        flex-direction: row;
-      }
-
-      .row > div {
-        flex: 1;
-      }
-    }
-  </style>
+</style>
 </head>
 <body>
   <div class="container">
-    <h2>Convertisseur Points-Valeur</h2>
-
+    <h2>Convertisseur Point-Valeur</h2>
     <div class="row">
       <div>
         <label for="lower_bound">Borne inférieure du signal:</label>
@@ -121,6 +106,9 @@
     <input type="number" id="value" oninput="convertValueToPoint()">
 
     <button class="btn" onclick="resetAll()">Réinitialiser</button>
+    
+<a href="index.html" class="btn">⬅️ Retour à l’accueil</a>
+
   </div>
 
   <script>

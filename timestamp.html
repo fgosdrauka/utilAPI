@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Convertisseur Date/Heure ↔️ Timestamp</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convertisseur Date ↔️ Timestamp</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -57,6 +57,9 @@
       color: white;
       background-color: #4287f5;
       cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
       transition: background-color 0.2s ease;
     }
 
@@ -64,22 +67,17 @@
       background-color: #2d5cc7;
     }
 
-    .result {
-      font-weight: bold;
-      text-align: center;
+    .result, .formula {
       margin-top: 15px;
-      color: #333;
+      font-size: 16px;
+      text-align: center;
+      color: #444;
     }
-
-    .result span {
-      font-weight: normal;
-      color: #222;
-    }
-  </style>
+</style>
 </head>
 <body>
   <div class="container">
-    <h2>Convertisseur Date/Heure ↔️ Timestamp</h2>
+    <h2>Convertisseur Date ↔️ Timestamp</h2>
 
     <label for="inputDate">Sélectionnez une date :</label>
     <input type="date" id="inputDate">
@@ -97,6 +95,10 @@
     <button class="btn" onclick="convertToDate()">Convertir en Date/Heure</button>
 
     <div class="result">Résultat : <span id="dateResult">-</span></div>
+
+    
+<a href="index.html" class="btn">⬅️ Retour à l’accueil</a>
+
   </div>
 
   <script>
